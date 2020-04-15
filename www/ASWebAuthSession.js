@@ -1,8 +1,14 @@
-var PLUGIN_NAME = 'ASWebAuthSession';
+var PLUGIN_NAME = "ASWebAuthSession";
 function ASWebAuthSession() {}
 
-ASWebAuthSession.prototype.start = function(redirectScheme, requestURL, callback, errorCallback) {
-  cordova.exec(callback, errorCallback, PLUGIN_NAME, 'start', [redirectScheme, requestURL]);
+ASWebAuthSession.prototype.start = function (options, callback, errorCallback) {
+  var url = options.url;
+  var callbackURLScheme = options.callbackURLScheme;
+  var prefersEphemeralWebBrowserSession = !!options.prefersEphemeralWebBrowserSession;
+
+  var params = [callbackURLScheme, url, prefersEphemeralWebBrowserSession];
+
+  cordova.exec(callback, errorCallback, PLUGIN_NAME, "start", params);
 };
 
 ASWebAuthSession.install = function () {
